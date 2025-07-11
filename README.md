@@ -78,14 +78,7 @@ Open your browser and go to `http://127.0.0.1:5000`
 3. Connect your GitHub repo
 4. Set build command:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. Set start command:
 
-   ```bash
-   gunicorn app:app
-   ```
 
 ---
 
