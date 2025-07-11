@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AkshaBot Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>🤖 AkshaBot Pro</h2>
+        <div id="chat-window"></div>
+        <input id="userInput" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMessage()">
+    </div>
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById("userInput");
+            const message = userInput.value;
+            const chatWindow = document.getElementById("chat-window");
+
+            if (!message) return;
+
+            chatWindow.innerHTML += `<div class='user'>👤 You: ${message}</div>`;
+            fetch(`/get?msg=${message}`)
+                .then(res => res.text())
+                .then(reply => {
+                    chatWindow.innerHTML += `<div class='bot'>🤖 Bot: ${reply}</div>`;
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                    userInput.value = "";
+                });
+        }
+    </script>
+</body>
+</html>
