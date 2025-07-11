@@ -1,16 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, request
+from flask_cors import CORS
 from chatbot_engine import get_response
 
 app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return render_template("index.html")
+CORS(app)
 
 @app.route("/get")
 def chatbot_reply():
-    user_msg = request.args.get("msg")
-    return get_response(user_msg)
+    msg = request.args.get("msg")
+    if not msg:
+        return "No message provided", 400
+    return get_response(msg)
 
 if __name__ == "__main__":
     app.run(debug=True)
